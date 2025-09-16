@@ -1,7 +1,8 @@
 package br.edu.utfpr.irigation.service;
 
 import br.edu.utfpr.irigation.model.Dispositivo;
-import br.edu.utfpr.irigation.model.repository.DispositivoRepository;
+import br.edu.utfpr.irigation.repository.DispositivoRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

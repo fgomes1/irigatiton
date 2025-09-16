@@ -1,7 +1,8 @@
 package br.edu.utfpr.irigation.service;
 
 import br.edu.utfpr.irigation.model.Setor;
-import br.edu.utfpr.irigation.model.repository.SetorRepository;
+import br.edu.utfpr.irigation.repository.SetorRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

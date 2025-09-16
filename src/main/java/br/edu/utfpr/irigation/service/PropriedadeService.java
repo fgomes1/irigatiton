@@ -1,7 +1,8 @@
 package br.edu.utfpr.irigation.service;
 
 import br.edu.utfpr.irigation.model.Propriedade;
-import br.edu.utfpr.irigation.model.repository.PropriedadeRepository;
+import br.edu.utfpr.irigation.repository.PropriedadeRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

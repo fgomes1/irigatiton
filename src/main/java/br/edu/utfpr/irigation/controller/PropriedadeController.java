@@ -2,8 +2,7 @@ package br.edu.utfpr.irigation.controller;
 
 
 import br.edu.utfpr.irigation.model.Propriedade;
-
-import br.edu.utfpr.irigation.model.repository.PropriedadeRepository;
+import br.edu.utfpr.irigation.repository.PropriedadeRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
