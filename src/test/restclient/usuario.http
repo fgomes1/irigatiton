@@ -1,0 +1,36 @@
+@URL=http://localhost:8080
+
+@ID_USUARIO=00000000-0000-0000-0000-000000000001
+
+### Criar um usuário
+POST {{URL}}/usuarios
+Content-Type: application/json
+
+{
+  "nome": "João Silva",
+  "email": "joao@example.com",
+  "senha": "segredo123"
+}
+
+### Listar usuários (paginado)
+GET {{URL}}/usuarios?pagina=0&tamanho=5
+Accept: application/json
+
+### Obter usuário por ID
+GET {{URL}}/usuarios/{{ID_USUARIO}}
+Accept: application/json
+
+### Atualizar usuário
+PUT {{URL}}/usuarios/{{ID_USUARIO}}
+Content-Type: application/json
+
+{
+  "nome": "João Atualizado",
+  "email": "joao.atualizado@example.com",
+  "senha": "novoSegredo123"
+}
+
+### Deletar usuário
+DELETE {{URL}}/usuarios/{{ID_USUARIO}}
+
+

@@ -1,43 +1,47 @@
 package br.edu.utfpr.irigation.controller;
 
-
-import br.edu.utfpr.irigation.model.Propriedade;
-import br.edu.utfpr.irigation.repository.PropriedadeRepository;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import br.edu.utfpr.irigation.dto.PropriedadeDTO;
+import br.edu.utfpr.irigation.service.PropriedadeService;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+import jakarta.validation.Valid;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/propriedades")
 public class PropriedadeController {
-    @Autowired
-    private PropriedadeRepository propriedadeRepository;
+    private final PropriedadeService service;
+
+    public PropriedadeController(PropriedadeService service) {
+        this.service = service;
+    }
 
     @GetMapping
-    public List<Propriedade> listar() {
-        return propriedadeRepository.findAll();
+    public Page<PropriedadeDTO> listar(@RequestParam(defaultValue = "0") int pagina,
+                                       @RequestParam(defaultValue = "10") int tamanho) {
+        return service.listar(pagina, tamanho);
     }
 
     @GetMapping("/{id}")
-    public Propriedade buscar(@PathVariable UUID id) {
-        return propriedadeRepository.findById(id).orElse(null);
+    public PropriedadeDTO buscar(@PathVariable UUID id) {
+        return service.buscar(id);
     }
 
     @PostMapping
-    public Propriedade criar(@RequestBody Propriedade propriedade) {
-        return propriedadeRepository.save(propriedade);
+    public ResponseEntity<PropriedadeDTO> criar(@Valid @RequestBody PropriedadeDTO dto) {
+        var salvo = service.salvar(dto);
+        return ResponseEntity.status(201).body(salvo);
     }
 
     @PutMapping("/{id}")
-    public Propriedade atualizar(@PathVariable UUID id, @RequestBody Propriedade propriedade) {
-        propriedade.setId(id);
-        return propriedadeRepository.save(propriedade);
+    public PropriedadeDTO atualizar(@PathVariable UUID id, @Valid @RequestBody PropriedadeDTO dto) {
+        return service.atualizar(id, dto);
     }
 
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable UUID id) {
-        propriedadeRepository.deleteById(id);
+    public ResponseEntity<Void> deletar(@PathVariable UUID id) {
+        service.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }

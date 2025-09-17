@@ -1,0 +1,45 @@
+@URL=http://localhost:8080
+
+@ID_SETOR=00000000-0000-0000-0000-000000000004
+@ID_DISPOSITIVO=00000000-0000-0000-0000-000000000003
+
+### Criar um setor
+POST {{URL}}/setores
+Content-Type: application/json
+
+{
+  "dispositivoId": "{{ID_DISPOSITIVO}}",
+  "nome": "Setor A",
+  "area": 25.5,
+  "tipoCultura": "Milho",
+  "status": "ATIVO",
+  "horariosIrrigacao": "{\"manha\":\"06:00\",\"tarde\":\"18:00\"}",
+  "ultimaIrrigacao": "2025-03-01"
+}
+
+### Listar setores (paginado)
+GET {{URL}}/setores?pagina=0&tamanho=5
+Accept: application/json
+
+### Obter setor por ID
+GET {{URL}}/setores/{{ID_SETOR}}
+Accept: application/json
+
+### Atualizar setor
+PUT {{URL}}/setores/{{ID_SETOR}}
+Content-Type: application/json
+
+{
+  "dispositivoId": "{{ID_DISPOSITIVO}}",
+  "nome": "Setor A - Atualizado",
+  "area": 30.0,
+  "tipoCultura": "Soja",
+  "status": "ATIVO",
+  "horariosIrrigacao": "{\"manha\":\"07:00\",\"tarde\":\"19:00\"}",
+  "ultimaIrrigacao": "2025-03-15"
+}
+
+### Deletar setor
+DELETE {{URL}}/setores/{{ID_SETOR}}
+
+

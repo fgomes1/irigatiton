@@ -1,0 +1,41 @@
+@URL=http://localhost:8080
+
+@ID_DISPOSITIVO=00000000-0000-0000-0000-000000000003
+@ID_PROPRIEDADE=00000000-0000-0000-0000-000000000002
+
+### Criar um dispositivo
+POST {{URL}}/dispositivos
+Content-Type: application/json
+
+{
+  "propriedadeId": "{{ID_PROPRIEDADE}}",
+  "nome": "Controlador Central",
+  "modelo": "X-200",
+  "status": "ATIVO",
+  "dataInstalacao": "2025-01-01"
+}
+
+### Listar dispositivos (paginado)
+GET {{URL}}/dispositivos?pagina=0&tamanho=5
+Accept: application/json
+
+### Obter dispositivo por ID
+GET {{URL}}/dispositivos/{{ID_DISPOSITIVO}}
+Accept: application/json
+
+### Atualizar dispositivo
+PUT {{URL}}/dispositivos/{{ID_DISPOSITIVO}}
+Content-Type: application/json
+
+{
+  "propriedadeId": "{{ID_PROPRIEDADE}}",
+  "nome": "Controlador Central 2",
+  "modelo": "X-300",
+  "status": "ATIVO",
+  "dataInstalacao": "2025-02-01"
+}
+
+### Deletar dispositivo
+DELETE {{URL}}/dispositivos/{{ID_DISPOSITIVO}}
+
+

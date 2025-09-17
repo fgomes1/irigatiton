@@ -1,42 +1,48 @@
 package br.edu.utfpr.irigation.controller;
 
-import br.edu.utfpr.irigation.model.Setor;
-import br.edu.utfpr.irigation.repository.SetorRepository;
+import br.edu.utfpr.irigation.dto.SetorDTO;
+import br.edu.utfpr.irigation.service.SetorService;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+import jakarta.validation.Valid;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/setores")
 public class SetorController {
-    @Autowired
-    private SetorRepository setorRepository;
+    private final SetorService service;
+
+    public SetorController(SetorService service) {
+        this.service = service;
+    }
 
     @GetMapping
-    public List<Setor> listar() {
-        return setorRepository.findAll();
+    public Page<SetorDTO> listar(@RequestParam(defaultValue = "0") int pagina,
+                                 @RequestParam(defaultValue = "10") int tamanho) {
+        return service.listar(pagina, tamanho);
     }
 
     @GetMapping("/{id}")
-    public Setor buscar(@PathVariable UUID id) {
-        return setorRepository.findById(id).orElse(null);
+    public SetorDTO buscar(@PathVariable UUID id) {
+        return service.buscar(id);
     }
 
     @PostMapping
-    public Setor criar(@RequestBody Setor setor) {
-        return setorRepository.save(setor);
+    public ResponseEntity<SetorDTO> criar(@Valid @RequestBody SetorDTO dto) {
+        var salvo = service.salvar(dto);
+        return ResponseEntity.status(201).body(salvo);
     }
 
     @PutMapping("/{id}")
-    public Setor atualizar(@PathVariable UUID id, @RequestBody Setor setor) {
-        setor.setId(id);
-        return setorRepository.save(setor);
+    public SetorDTO atualizar(@PathVariable UUID id, @Valid @RequestBody SetorDTO dto) {
+        return service.atualizar(id, dto);
     }
 
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable UUID id) {
-        setorRepository.deleteById(id);
+    public ResponseEntity<Void> deletar(@PathVariable UUID id) {
+        service.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }

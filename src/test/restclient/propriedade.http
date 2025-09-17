@@ -1,0 +1,39 @@
+@URL=http://localhost:8080
+
+@ID_PROPRIEDADE=00000000-0000-0000-0000-000000000002
+@ID_USUARIO=00000000-0000-0000-0000-000000000001
+
+### Criar uma propriedade
+POST {{URL}}/propriedades
+Content-Type: application/json
+
+{
+  "nome": "Fazenda Alegria",
+  "localizacao": "Estrada 123, Interior",
+  "tamanho": 150.5,
+  "usuarioId": "{{ID_USUARIO}}"
+}
+
+### Listar propriedades (paginado)
+GET {{URL}}/propriedades?pagina=0&tamanho=5
+Accept: application/json
+
+### Obter propriedade por ID
+GET {{URL}}/propriedades/{{ID_PROPRIEDADE}}
+Accept: application/json
+
+### Atualizar propriedade
+PUT {{URL}}/propriedades/{{ID_PROPRIEDADE}}
+Content-Type: application/json
+
+{
+  "nome": "Fazenda Alegria 2",
+  "localizacao": "Estrada 123, Interior",
+  "tamanho": 200.0,
+  "usuarioId": "{{ID_USUARIO}}"
+}
+
+### Deletar propriedade
+DELETE {{URL}}/propriedades/{{ID_PROPRIEDADE}}
+
+
