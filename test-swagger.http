@@ -1,0 +1,48 @@
+### Teste da API de Irrigação com Swagger
+
+# 1. Primeiro faça login para obter o token JWT
+POST http://localhost:8081/auth/login
+Content-Type: application/json
+
+{
+  "username": "franciney@gmail.com",
+  "password": "MinhaSenh@123"
+}
+
+###
+
+# 2. Use o token JWT retornado acima para acessar os endpoints protegidos
+# Substitua {ACCESS_TOKEN} pelo token obtido no login
+GET http://localhost:8081/api/usuarios
+Authorization: Bearer {ACCESS_TOKEN}
+
+###
+
+# 3. Criar um novo usuário (endpoints protegidos)
+POST http://localhost:8081/api/usuarios
+Authorization: Bearer {ACCESS_TOKEN}
+Content-Type: application/json
+
+{
+  "nome": "João Silva",
+  "email": "joao@exemplo.com"
+}
+
+###
+
+# 4. Buscar usuário por ID
+GET http://localhost:8081/api/usuarios/{ID_DO_USUARIO}
+Authorization: Bearer {ACCESS_TOKEN}
+
+###
+
+# 5. Validar token JWT
+POST http://localhost:8081/auth/validate
+Authorization: Bearer {ACCESS_TOKEN}
+
+###
+
+# IMPORTANTE: 
+# - Acesse o Swagger UI em: http://localhost:8081/swagger-ui/index.html
+# - Para testar endpoints protegidos no Swagger, clique em "Authorize" e cole o token JWT
+# - O token deve ser inserido no formato: Bearer {seu_token_aqui}
