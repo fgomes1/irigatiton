@@ -45,6 +45,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3O
 
 ### 3.1 Login - SEM token (DEVE retornar 200 ou erro de validação, não 401)
 GET {{URL}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "pedrotguila@gmail.com",
+    "password": "sExAJfaGM6u72j2!"
+}
 
 ### 3.2 Validate - SEM token (DEVE retornar erro de parâmetro, não 401)
 GET {{URL}}/auth/validate
