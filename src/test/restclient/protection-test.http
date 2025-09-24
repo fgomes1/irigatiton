@@ -1,0 +1,60 @@
+@URL=http://localhost:8081
+
+### ===== TESTE DE PROTEÇÃO DE ROTAS =====
+
+### COMO INTERPRETAR OS RESULTADOS:
+# ✅ PROTEGIDO CORRETAMENTE: 
+#    - COM token: Status 200 (sucesso)
+#    - SEM token: Status 401 (não autorizado)
+#    - Token inválido: Status 401 (não autorizado)
+#
+# ❌ NÃO PROTEGIDO (problema):
+#    - SEM token: Status 200 (deveria ser 401)
+
+### 1. TESTE: Endpoint /api/** DEVE estar protegido
+
+### 1.1 Usuários - SEM token (DEVE retornar 401)
+GET {{URL}}/api/usuarios
+
+### 1.2 Propriedades - SEM token (DEVE retornar 401)
+GET {{URL}}/api/propriedades
+
+### 1.3 Dispositivos - SEM token (DEVE retornar 401)
+GET {{URL}}/api/dispositivos
+
+### 1.4 Setores - SEM token (DEVE retornar 401)
+GET {{URL}}/api/setores
+
+### 1.5 Profile - SEM token (DEVE retornar 401)
+GET {{URL}}/api/profile
+
+### 1.6 Protected - SEM token (DEVE retornar 401)
+GET {{URL}}/api/protected
+
+### 2. TESTE: Token inválido DEVE retornar 401
+
+### 2.1 Token malformado
+GET {{URL}}/api/usuarios
+Authorization: Bearer token_invalido
+
+### 2.2 Token expirado ou inválido
+GET {{URL}}/api/usuarios
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+
+### 3. TESTE: Rotas de autenticação NÃO DEVEM estar protegidas
+
+### 3.1 Login - SEM token (DEVE retornar 200 ou erro de validação, não 401)
+GET {{URL}}/auth/login
+
+### 3.2 Validate - SEM token (DEVE retornar erro de parâmetro, não 401)
+GET {{URL}}/auth/validate
+
+### 4. TESTE: Console H2 NÃO DEVE estar protegido
+GET {{URL}}/h2-console/
+
+### 5. VERIFICAR LOGS DA APLICAÇÃO
+# Quando você executar estes testes, verifique o console da aplicação
+# Deve aparecer logs como:
+# - "Token JWT do Cognito inválido"
+# - "Chave pública não encontrada para o token"
+# - "Erro ao validar token do Cognito"

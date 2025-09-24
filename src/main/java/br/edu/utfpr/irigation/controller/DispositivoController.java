@@ -9,7 +9,7 @@ import jakarta.validation.Valid;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/dispositivos")
+@RequestMapping("/api/dispositivos")
 public class DispositivoController {
     private final DispositivoService service;
 

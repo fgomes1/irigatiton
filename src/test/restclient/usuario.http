@@ -1,10 +1,12 @@
-@URL=http://localhost:8080
+@URL=http://localhost:8081
+@TOKEN=SEU_TOKEN_JWT_AQUI
 
 @ID_USUARIO=00000000-0000-0000-0000-000000000001
 
 ### Criar um usuário
-POST {{URL}}/usuarios
+POST {{URL}}/api/usuarios
 Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
 
 {
   "nome": "João Silva",
@@ -13,16 +15,19 @@ Content-Type: application/json
 }
 
 ### Listar usuários (paginado)
-GET {{URL}}/usuarios?pagina=0&tamanho=5
+GET {{URL}}/api/usuarios?pagina=0&tamanho=5
 Accept: application/json
+Authorization: Bearer {{TOKEN}}
 
 ### Obter usuário por ID
-GET {{URL}}/usuarios/{{ID_USUARIO}}
+GET {{URL}}/api/usuarios/{{ID_USUARIO}}
 Accept: application/json
+Authorization: Bearer {{TOKEN}}
 
 ### Atualizar usuário
-PUT {{URL}}/usuarios/{{ID_USUARIO}}
+PUT {{URL}}/api/usuarios/{{ID_USUARIO}}
 Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
 
 {
   "nome": "João Atualizado",
@@ -31,6 +36,7 @@ Content-Type: application/json
 }
 
 ### Deletar usuário
-DELETE {{URL}}/usuarios/{{ID_USUARIO}}
+DELETE {{URL}}/api/usuarios/{{ID_USUARIO}}
+Authorization: Bearer {{TOKEN}}
 
 

@@ -10,7 +10,7 @@ import jakarta.validation.Valid;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/setores")
+@RequestMapping("/api/setores")
 public class SetorController {
     private final SetorService service;
 
