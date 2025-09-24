@@ -28,11 +28,11 @@ import io.swagger.v3.oas.annotations.servers.Server;
   ),
   servers = {
     @Server(
-      url = "${api.server.dev}",
+      url = "http://localhost:8081",
       description = "Development"
     ),
     @Server(
-      url = "${api.server.prod}",
+      url = "https://irigation-api.herokuapp.com",
       description = "Production"
     ),
   }
