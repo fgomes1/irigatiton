@@ -1,19 +1,5 @@
 @URL=http://localhost:8081
 
-### ===== TESTE DE PROTEÇÃO DE ROTAS =====
-
-### COMO INTERPRETAR OS RESULTADOS:
-# ✅ PROTEGIDO CORRETAMENTE: 
-#    - COM token: Status 200 (sucesso)
-#    - SEM token: Status 401 (não autorizado)
-#    - Token inválido: Status 401 (não autorizado)
-#
-# ❌ NÃO PROTEGIDO (problema):
-#    - SEM token: Status 200 (deveria ser 401)
-
-### 1. TESTE: Endpoint /api/** DEVE estar protegido
-
-### 1.1 Usuários - SEM token (DEVE retornar 401)
 GET {{URL}}/api/usuarios
 
 ### 1.2 Propriedades - SEM token (DEVE retornar 401)
