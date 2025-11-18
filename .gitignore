@@ -31,3 +31,60 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+# Build artifacts
+target/
+build/
+
+# Maven-specific
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle-specific
+.gradle/
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+
+# IDE-specific files
+.idea/
+.vscode/
+*.iml
+.project
+.classpath
+.settings/
+*.ipr
+*.iws
+
+# Log files
+logs/
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+.#*
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment variables and secrets (important for security)
+.env
+application.properties
+application.yml
+*.properties
+*.yml
+
+# Compiled class files
+**/classes/
+
+# Test reports and coverage
+test-reports/
+coverage/
+
+node_modules/
