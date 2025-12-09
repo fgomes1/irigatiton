@@ -24,17 +24,6 @@ GET {{URL}}/api/usuarios/{{ID_USUARIO}}
 Accept: application/json
 Authorization: Bearer {{TOKEN}}
 
-### Atualizar usuário
-PUT {{URL}}/api/usuarios/{{ID_USUARIO}}
-Content-Type: application/json
-Authorization: Bearer {{TOKEN}}
-
-{
-  "nome": "João Atualizado",
-  "email": "joao.atualizado@example.com",
-  "senha": "novoSegredo123"
-}
-
 ### Deletar usuário
 DELETE {{URL}}/api/usuarios/{{ID_USUARIO}}
 Authorization: Bearer {{TOKEN}}
