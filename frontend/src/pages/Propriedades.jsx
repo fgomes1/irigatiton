@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 import { propriedadeService } from '../services/api';
 
+import { useAuth } from '../context/AuthContext';
+
 const Propriedades = () => {
+    const { user } = useAuth();
     const [propriedades, setPropriedades] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
@@ -30,11 +33,23 @@ const Propriedades = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Ensure usuarioId is set
+        const dataToSend = {
+            ...formData,
+            usuarioId: formData.usuarioId || user?.sub
+        };
+
+        if (!dataToSend.usuarioId) {
+            alert("Erro: Usuário não identificado. Faça login novamente.");
+            return;
+        }
+
         try {
             if (editingItem) {
-                await propriedadeService.atualizar(editingItem.id, formData);
+                await propriedadeService.atualizar(editingItem.id, dataToSend);
             } else {
-                await propriedadeService.criar(formData);
+                await propriedadeService.criar(dataToSend);
             }
             setShowModal(false);
             setEditingItem(null);
@@ -42,6 +57,7 @@ const Propriedades = () => {
             loadData();
         } catch (error) {
             console.error('Erro ao salvar:', error);
+            alert('Erro ao salvar propriedade. Verifique os dados.');
         }
     };
 
