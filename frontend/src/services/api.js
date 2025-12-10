@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080';
+const API_BASE_URL = 'http://localhost:8081';
 
 const api = axios.create({
     baseURL: API_BASE_URL,
@@ -45,6 +45,7 @@ export const authService = {
 export const usuarioService = {
     listar: (pagina = 0, tamanho = 10) => api.get(`/api/usuarios?pagina=${pagina}&tamanho=${tamanho}`),
     buscar: (id) => api.get(`/api/usuarios/${id}`),
+    registrar: (data) => api.post('/api/usuarios/registro', data),
     criar: (data) => api.post('/api/usuarios', data),
     atualizar: (id, data) => api.put(`/api/usuarios/${id}`, data),
     deletar: (id) => api.delete(`/api/usuarios/${id}`),

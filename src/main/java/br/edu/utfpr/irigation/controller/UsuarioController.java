@@ -60,6 +60,18 @@ public class UsuarioController {
         return ResponseEntity.status(201).body(salvo);
     }
 
+    @Operation(summary = "Registrar novo usuário", description = "Cria um novo usuário (público).")
+    @ApiResponses({
+        @ApiResponse(responseCode = "201", description = "Usuário registrado com sucesso",
+                content = @Content(schema = @Schema(implementation = UsuarioDTO.class))),
+        @ApiResponse(responseCode = "400", description = "Dados inválidos")
+    })
+    @PostMapping("/registro")
+    public ResponseEntity<UsuarioDTO> registrar(@Valid @RequestBody UsuarioDTO dto) {
+        var salvo = service.salvar(dto);
+        return ResponseEntity.status(201).body(salvo);
+    }
+
     @Operation(summary = "Atualizar usuário", description = "Atualiza um usuário existente.")
     @ApiResponses({
         @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso",

@@ -39,6 +39,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import br.edu.utfpr.irigation.model.Usuario;
+import br.edu.utfpr.irigation.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import java.nio.charset.StandardCharsets;
 
 @RestController
@@ -64,6 +67,9 @@ public class AuthController {
     private final RestTemplate restTemplate = new RestTemplate();
     private ObjectMapper objectMapper = new ObjectMapper();
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     @Operation(summary = "Login de usuário", description = "Realiza a autenticação do usuário usando AWS Cognito.")
     @ApiResponses({
         @ApiResponse(responseCode = "200", description = "Autenticação bem-sucedida",
@@ -74,6 +80,30 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
         try {
+            // Tentativa de login local
+            Usuario user = usuarioRepository.findByEmail(authRequest.getUsername());
+            if (user == null) {
+                user = usuarioRepository.findByNome(authRequest.getUsername());
+            }
+
+            if (user != null && user.getSenha().equals(authRequest.getPassword())) {
+                String token = JWT.create()
+                        .withSubject(user.getId().toString())
+                        .withClaim("username", user.getNome())
+                        .withClaim("email", user.getEmail())
+                        .withIssuer("local-auth")
+                        .sign(Algorithm.HMAC256("local-secret-key"));
+
+                Map<String, Object> result = new HashMap<>();
+                Map<String, String> authResult = new HashMap<>();
+                authResult.put("AccessToken", token);
+                authResult.put("IdToken", token);
+                authResult.put("RefreshToken", "local-refresh-token");
+                result.put("AuthenticationResult", authResult);
+
+                return ResponseEntity.ok(result);
+            }
+
             String secretHash = calculateSecretHash(authRequest.getUsername());
 
             Map<String, Object> authParams = new HashMap<>();

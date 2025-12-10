@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import MainLayout from './components/Layout/MainLayout';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Propriedades from './pages/Propriedades';
 import Dispositivos from './pages/Dispositivos';
@@ -58,6 +59,14 @@ function App() {
             element={
               <PublicRoute>
                 <Login />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/cadastro"
+            element={
+              <PublicRoute>
+                <Register />
               </PublicRoute>
             }
           />

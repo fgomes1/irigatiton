@@ -88,6 +88,15 @@ public class CognitoTokenValidationInterceptor implements HandlerInterceptor {
 
             try {
                 DecodedJWT jwt = JWT.decode(token);
+                
+                // Validação de token local
+                if ("local-auth".equals(jwt.getIssuer())) {
+                    Algorithm algorithm = Algorithm.HMAC256("local-secret-key");
+                    algorithm.verify(jwt);
+                    request.setAttribute("cognitoUser", jwt.getClaims());
+                    return true;
+                }
+
                 String keyId = jwt.getHeaderClaim("kid").asString();
                 PublicKey publicKey = getPublicKey(keyId);
 
