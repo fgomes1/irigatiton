@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             return {
                 success: false,
-                error: error.response?.data?.message || 'Erro ao fazer login'
+                error: error.response?.data?.error || error.response?.data?.message || 'Erro ao fazer login'
             };
         }
     };

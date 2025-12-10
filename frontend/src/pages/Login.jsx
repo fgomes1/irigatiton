@@ -20,6 +20,7 @@ const Login = () => {
         if (result.success) {
             navigate('/dashboard');
         } else {
+            console.error('Login error:', result);
             setError(result.error);
         }
 
